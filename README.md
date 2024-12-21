@@ -4,10 +4,10 @@
 Project Structure:    
     symfony-docker/
     ├── docker-compose.yml
+    ├── Dockerfile
+    ├── php.ini
     ├── nginx/
     │   └── default.conf
-    ├── php/
-    │   └── Dockerfile
     └── mysql/
 
 # Build the containers:
@@ -24,10 +24,9 @@ Project Structure:
 
 # Use Composer to create a new Symfony project:
     - composer create-project symfony/skeleton my_project
+    (my_project isimli klasörde olmasın diyorsan yerine . koy.)
+    - cd my_project
 
-# Move Project
-    - Go to project directory on windows file explorer and move project to one above
-    (Cut the project and paste it in parent folder and then delete my_project folder)
 
 # Configure the Database
     - Edit the .env file inside your Symfony project (my_project/.env) and set the DATABASE_URL:
@@ -38,19 +37,24 @@ Project Structure:
 - docker-compose down
 - docker-compose up -d
 
+- docker exec -it symfony_php bash
+- cd my_project
+
 - Go to http://localhost:8080
 
+
+# How to WORK With Project 
+- docker-compose up -d
 - docker exec -it symfony_php bash
-
-- composer require symfony/orm-pack
-
-- Uncomment appropriate DATABASE_URL and change username pass and db name
-    * If you want to see database: (If not, skip here)
-        ** docker ps
-        ** docker exec -it <container_id> mysql -u root -p
-        ** SHOW DATABASES;
-
-- bin/console doctrine:database:create
+- Go to http://localhost:8080
 
 
+# MYSQL Container Connect
+- docker ps
+- docker exec -it <container_id> mysql -u root -p (password admin)
+- SHOW DATABASES;
 
+
+NOTLAR:
+- symfony cli'ın sunduğu ``symfony start:server`` komutuyla symfony web server çalışır 
+    ancak browser'da açılmaz. (http://127.0.0.1:8000/)(Belki vardır yolu ama şimdilik skip)
